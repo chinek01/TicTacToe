@@ -7,3 +7,7 @@ Start date: 2023-06-28
 Author: MC
 
 """
+
+import art.art as art
+
+print(art.logo)
