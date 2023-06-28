@@ -22,7 +22,7 @@ class Gamer:
         self.score += 1
 
     def get_score(self):
-        return f"{self.name} : {self.score}"
+        return f"{self.symbol}->{self.name} : {self.score}"
 
     def set_symbol(self,
                    symbol="X"):
