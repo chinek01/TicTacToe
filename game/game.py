@@ -9,6 +9,15 @@ Author: MC
 
 class Game:
 
+    area_win_conf = [[0, 1, 2],
+                     [3, 4, 5],
+                     [6, 7, 8],
+                     [0, 3, 6],
+                     [1, 4, 7],
+                     [2, 5, 8],
+                     [0, 4, 8],
+                     [2, 4, 6]]
+
     def __init__(self):
         self.area = ['-', '-', '-',
                      '-', '-', '-',
@@ -37,7 +46,8 @@ class Game:
 
         if self.check_field(field):
             self.area[field] = symbol
-            return f"Field set success."
+            self.check_win(symbol)
+            return f"Success set field."
         else:
             return f"Field is not empty!"
 
@@ -55,11 +65,16 @@ class Game:
         if not (0 <= field <= 8):
             raise AttributeError('Field number must by from 0 to 8')
 
-        for f in self.area:
-            if f != ' - ':
-                return False
+        # for f in self.area:
+        #     if f != '-':
+        #         return False
+        #
+        # return True
 
-        return True
+        if self.area[field] == '-':
+            return True
+        else:
+            return False
 
     def print_area(self):
         """
@@ -67,10 +82,33 @@ class Game:
         """
 
         print('', self.area[0], '| ', self.area[1], '|', self.area[2])
-        print("---+---+---")
+        print("---+----+---")
         print('', self.area[3], '| ', self.area[4], '|', self.area[5])
-        print("---+---+---")
+        print("---+----+---")
         print('', self.area[6], '| ', self.area[7], '|', self.area[8])
+
+    def check_win(self,
+                  symbol):
+        match_table = []
+
+        for n in range(len(self.area)):
+            if self.area[n] == symbol:
+                match_table.append(n)
+
+        result = False
+
+        for n in range(len(self.area_win_conf)):
+            win_count = 0
+            for w in range(len(self.area_win_conf[n])):
+                for i in range(len(match_table)):
+                    if match_table[i] == self.area_win_conf[n][w]:
+                        win_count += 1
+
+            if win_count == 3:
+                result = True
+
+        # return result
+        print(f"Win result {result}")
 
 
 # some class test
@@ -80,6 +118,12 @@ if __name__ == '__main__':
     # print(f"19: {game.check_field(19)}")
     # print(f"-9: {game.check_field(-9)}")
     # print(game.check_field())
+    print(f"{game.set_symbol_on_field(symbol='o', field=0)}")
+    print(f"{game.set_symbol_on_field(symbol='x', field=2)}")
     print(f"{game.set_symbol_on_field(symbol='o', field=1)}")
-    print(f"{game.set_symbol_on_field(symbol='o', field=1)}")
+    print(f"{game.set_symbol_on_field(symbol='x', field=7)}")
+    print(f"{game.set_symbol_on_field(symbol='o', field=4)}")
+    print(f"{game.set_symbol_on_field(symbol='x', field=3)}")
+    print(f"{game.set_symbol_on_field(symbol='o', field=8)}")
+
     print(game.print_area())
