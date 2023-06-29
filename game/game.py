@@ -21,14 +21,25 @@ class Game:
         Set symbol X or O on area field
         :param symbol: X or O
         :param field: field number from 0 to 8
-        :return: True - , False -
+        :return: OK - success set symbol on field , Not ok - field is not emoty
         """
 
         if symbol is None:
             raise ValueError("Symbol must be set!")
 
-        if field is None:
-            raise ValueError("Field must be set!")
+        try:
+            symbol = symbol.__str__().upper()
+        except Exception as e:
+            print(f'Something bed happened: {e}')
+
+        if not (symbol == 'X' or symbol == 'O'):
+            raise ValueError("Symbol must be X or O")
+
+        if self.check_field(field):
+            self.area[field] = symbol
+            return f"Field set success."
+        else:
+            return f"Field is not empty!"
 
     def check_field(self,
                     field):
@@ -45,11 +56,21 @@ class Game:
             raise AttributeError('Field number must by from 0 to 8')
 
         for f in self.area:
-            # print(f)
-            if f != '-':
+            if f != ' - ':
                 return False
 
         return True
+
+    def print_area(self):
+        """
+        Print game area.
+        """
+
+        print('', self.area[0], '| ', self.area[1], '|', self.area[2])
+        print("---+---+---")
+        print('', self.area[3], '| ', self.area[4], '|', self.area[5])
+        print("---+---+---")
+        print('', self.area[6], '| ', self.area[7], '|', self.area[8])
 
 
 # some class test
@@ -59,3 +80,6 @@ if __name__ == '__main__':
     # print(f"19: {game.check_field(19)}")
     # print(f"-9: {game.check_field(-9)}")
     # print(game.check_field())
+    print(f"{game.set_symbol_on_field(symbol='o', field=1)}")
+    print(f"{game.set_symbol_on_field(symbol='o', field=1)}")
+    print(game.print_area())
