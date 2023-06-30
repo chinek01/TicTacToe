@@ -31,7 +31,7 @@ p2_symbol = 'O'
 
 # print logo
 print(art.logo)
-sleep(5)
+sleep(1)
 clear()
 
 # set game - set players
@@ -57,8 +57,13 @@ else:
 # init game class - if new game init new object :)
 my_game = Game()
 
-while not my_game.end_game_flag or not my_game.dead_heat_flag:
+while not my_game.end_game_flag and not my_game.dead_heat_flag:
 
+    print()
+    print(f"""
+end_game flag: {my_game.end_game_flag}
+dead-heat flag: {my_game.dead_heat_flag}
+""")
     my_game.print_area()
 
     if first_move == 1:
