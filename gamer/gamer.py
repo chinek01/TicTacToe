@@ -9,6 +9,8 @@ Author: MC
 
 class Gamer:
 
+    max_score_value = 999
+
     def __init__(self,
                  name):
         if name is None or name == '':
@@ -17,9 +19,13 @@ class Gamer:
         self.name = name
         self.score = 0
         self.symbol = 'X'
+        self.max_score = False
 
     def increase_score(self):
         self.score += 1
+
+        if self.score == self.max_score_value:
+            self.max_score = True
 
     def get_score(self):
         return f"{self.symbol}->{self.name} : {self.score}"
