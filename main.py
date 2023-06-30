@@ -28,3 +28,14 @@ def clear():
 print(art.logo)
 sleep(5)
 clear()
+
+# set game - set players
+players = []
+
+for n in range(2):
+    print(art.set_player_name(n))
+    players.append(Gamer(input("Name: ")))
+    clear()
+
+
+print(players[0].name, ' ', players[1].name)
