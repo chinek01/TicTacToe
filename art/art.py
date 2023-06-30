@@ -34,13 +34,44 @@ def set_player_name(player_num=1):
 
 
 def set_player_move(player_num=1,
-                    player_name=None):
+                    player_symbol=None):
     return f"""
 +---------------------------------------------------------------------------------------------------------------------+
-|                                               Player {player_num}                                                              |
+{set_player_help(player_num, player_symbol)}
 +---------------------------------------------------------------------------------------------------------------------+
 |                                                                                                                     |
 |                                      Please enter your move (from 0 to 8)                                           |
 |                                                                                                                     |
 +---------------------------------------------------------------------------------------------------------------------+
 """
+
+
+def set_player_help(player_name=None,
+                    player_symbol=None):
+    # 119 max chars for one row
+    max_row_len = 119 - 2
+    sub_line = f"Player {player_name}: {player_symbol}"
+    sub_line_len = len(sub_line)
+
+    # start build end line
+    line_to_return = "|"
+    line_range = int(max_row_len/2 - sub_line_len/2)
+
+    for n in range(line_range):
+        line_to_return += ' '
+
+    line_to_return += sub_line
+
+    for n in range(line_range):
+        line_to_return += ' '
+
+    if len(line_to_return) == 118:
+        line_to_return += '|'
+    else:
+        line_to_return += ' |'
+
+    return line_to_return
+
+
+if __name__ == '__main__':
+    print(set_player_help('Marcin', 'X'))

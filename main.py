@@ -31,7 +31,7 @@ p2_symbol = 'O'
 
 # print logo
 print(art.logo)
-sleep(1)
+sleep(3)
 clear()
 
 # set game - set players
@@ -64,11 +64,11 @@ while not my_game.end_game_flag and not my_game.dead_heat_flag:
 end_game flag: {my_game.end_game_flag}
 dead-heat flag: {my_game.dead_heat_flag}
 """)
-    my_game.print_area()
+    my_game.print_area_gui()
 
     if first_move == 1:
         # wait for player_1 move
-        print(art.set_player_move(1))
+        print(art.set_player_move(player_1.name, player_1.symbol))
         my_game.set_symbol_on_field(player_1.get_symbol(),
                                     int(input("Field: ")))
 
@@ -78,7 +78,7 @@ dead-heat flag: {my_game.dead_heat_flag}
         first_move = 2
     else:
         # wait for player_2 move
-        print(art.set_player_move(1))
+        print(art.set_player_move(player_2.name, player_2.symbol))
         my_game.set_symbol_on_field(player_2.get_symbol(),
                                     int(input("Field: ")))
 
