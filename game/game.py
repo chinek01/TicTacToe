@@ -22,6 +22,7 @@ class Game:
         self.area = ['-', '-', '-',
                      '-', '-', '-',
                      '-', '-', '-']
+        self.end_game = False
 
     def set_symbol_on_field(self,
                             symbol,
@@ -95,7 +96,7 @@ class Game:
             if self.area[n] == symbol:
                 match_table.append(n)
 
-        result = False
+        self.end_game = False
 
         for n in range(len(self.area_win_conf)):
             win_count = 0
@@ -105,10 +106,10 @@ class Game:
                         win_count += 1
 
             if win_count == 3:
-                result = True
+                self.end_game = True
 
         # return result
-        print(f"Win result {result}")
+        print(f"Win result {self.end_game}")
 
 
 # some class test
