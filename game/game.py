@@ -22,7 +22,8 @@ class Game:
         self.area = ['-', '-', '-',
                      '-', '-', '-',
                      '-', '-', '-']
-        self.end_game = False
+        self.end_game_flag = False
+        self.dead_heat_flag = False
 
     def set_symbol_on_field(self,
                             symbol,
@@ -48,6 +49,7 @@ class Game:
         if self.check_field(field):
             self.area[field] = symbol
             self.check_win(symbol)
+            self.check_dead_heat()
             return f"Success set field."
         else:
             return f"Field is not empty!"
@@ -65,12 +67,6 @@ class Game:
 
         if not (0 <= field <= 8):
             raise AttributeError('Field number must by from 0 to 8')
-
-        # for f in self.area:
-        #     if f != '-':
-        #         return False
-        #
-        # return True
 
         if self.area[field] == '-':
             return True
@@ -96,7 +92,7 @@ class Game:
             if self.area[n] == symbol:
                 match_table.append(n)
 
-        self.end_game = False
+        self.end_game_flag = False
 
         for n in range(len(self.area_win_conf)):
             win_count = 0
@@ -106,10 +102,26 @@ class Game:
                         win_count += 1
 
             if win_count == 3:
-                self.end_game = True
+                self.end_game_flag = True
 
         # return result
-        print(f"Win result {self.end_game}")
+        print(f"Win result {self.end_game_flag}")
+
+    def check_dead_heat(self):
+        """
+        Sprawdzanie, czy nie mamy remisu, gdy wszystkie pola są zajęte i nie będzie zwycięzcy
+        :return: True - if all fields are not empty; False - is any field is '-'
+        """
+
+        self.dead_heat_flag = True
+
+        for n in range(len(self.area)):
+            if self.area[n] == '-':
+                self.dead_heat_flag = False
+                break
+
+        return self.dead_heat_flag
+
 
 
 # some class test

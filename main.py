@@ -57,7 +57,7 @@ else:
 # init game class
 my_game = Game()
 
-while not my_game.end_game:
+while not my_game.end_game_flag:
 
     if first_move == 1:
         # wait for player_1 move
