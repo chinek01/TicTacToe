@@ -54,20 +54,31 @@ else:
     player_1.set_symbol(p2_symbol)
     player_2.set_symbol(p1_symbol)
 
-# init game class
+# init game class - if new game init new object :)
 my_game = Game()
 
-while not my_game.end_game_flag:
+while not my_game.end_game_flag or not my_game.dead_heat_flag:
+
+    my_game.print_area()
 
     if first_move == 1:
         # wait for player_1 move
         print(art.set_player_move(1))
         my_game.set_symbol_on_field(player_1.get_symbol(),
-                                    input("Field: "))
-        # todo: what if remis or win
-        # if my_game.end_game
+                                    int(input("Field: ")))
+
+        if my_game.end_game_flag is True:
+            player_1.increase_score()
+
         first_move = 2
     else:
         # wait for player_2 move
         print(art.set_player_move(1))
+        my_game.set_symbol_on_field(player_2.get_symbol(),
+                                    int(input("Field: ")))
+
+        if my_game.end_game_flag is True:
+            player_2.increase_score()
         first_move = 1
+
+    clear()
