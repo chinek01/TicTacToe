@@ -65,32 +65,33 @@ while flag_new_game:
     while not my_game.end_game_flag and not my_game.dead_heat_flag:
 
         print()
-        print(f"""
-    end_game flag: {my_game.end_game_flag}
-    dead-heat flag: {my_game.dead_heat_flag}
-    """)
         my_game.print_area_gui()
+
+        if my_game.field_set_flag is not True:
+            print(art.field_is_not_empty_info())
 
         if first_move == 1:
             # wait for player_1 move
             print(art.set_player_move(player_1.name, player_1.symbol))
-            my_game.set_symbol_on_field(player_1.get_symbol(),
-                                        int(input("Field: ")))
+            info = my_game.set_symbol_on_field(player_1.get_symbol(),
+                                               int(input("Field: ")))
 
-            if my_game.end_game_flag is True:
-                player_1.increase_score()
+            if my_game.field_set_flag is True:
+                if my_game.end_game_flag is True:
+                    player_1.increase_score()
 
-            first_move = 2
+                first_move = 2
         else:
             # wait for player_2 move
             print(art.set_player_move(player_2.name, player_2.symbol))
-            my_game.set_symbol_on_field(player_2.get_symbol(),
-                                        int(input("Field: ")))
+            info = my_game.set_symbol_on_field(player_2.get_symbol(),
+                                               int(input("Field: ")))
 
-            if my_game.end_game_flag is True:
-                player_2.increase_score()
+            if my_game.field_set_flag is True:
+                if my_game.end_game_flag is True:
+                    player_2.increase_score()
 
-            first_move = 1
+                first_move = 1
 
         clear()
 

@@ -24,6 +24,7 @@ class Game:
                      '-', '-', '-']
         self.end_game_flag = False
         self.dead_heat_flag = False
+        self.field_set_flag = True
 
     def set_symbol_on_field(self,
                             symbol,
@@ -34,6 +35,8 @@ class Game:
         :param field: field number from 0 to 8
         :return: OK - success set symbol on field , Not ok - field is not emoty
         """
+
+        self.field_set_flag = False
 
         if symbol is None:
             raise ValueError("Symbol must be set!")
@@ -48,6 +51,7 @@ class Game:
 
         if self.check_field(field):
             self.area[field] = symbol
+            self.field_set_flag = True
             self.check_win(symbol)
             self.check_dead_heat()
             return f"Success set field."
