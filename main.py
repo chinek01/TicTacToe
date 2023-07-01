@@ -94,11 +94,17 @@ while flag_new_game:
 
         clear()
 
-        if my_game.end_game_flag is True or my_game.dead_heat_flag is True:
+        if my_game.end_game_flag is True:
             if player_1.score > player_2.score:
                 print(art.win_player_and_scoreboard(player_1, player_2))
             else:
                 print(art.win_player_and_scoreboard(player_2, player_1))
+
+        if my_game.dead_heat_flag is True:
+            if player_1.score > player_2.score:
+                print(art.dead_heat_and_scoreboard(player_1, player_2))
+            else:
+                print(art.dead_heat_and_scoreboard(player_2, player_1))
 
     # new game question - main loop
     if input("Another game [Y/N]: ").upper() != 'Y':
