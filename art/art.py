@@ -46,11 +46,34 @@ def set_player_move(player_num=1,
 """
 
 
+def win_player_and_scoreboard(win_player,
+                              second_player):
+    return f"""
++---------------------------------------------------------------------------------------------------------------------+
+{set_player_help(win_player.name, 'Win this round', '->')}
++---------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                     |
+{set_player_help('Scoreboard', '', '', '')}
+|                                                                                                                     |
++---------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                     |
+{set_player_help(win_player.name, f'wins {win_player.score}', '->')}
+|                                                                                                                     |
++---------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                     |
+{set_player_help(second_player.name, f'wins {second_player.score}', '->')}
+|                                                                                                                     |
++---------------------------------------------------------------------------------------------------------------------+
+"""
+
+
 def set_player_help(player_name=None,
-                    player_symbol=None):
+                    player_symbol=None,
+                    sep=':',
+                    title='Player'):
     # 119 max chars for one row
     max_row_len = 119 - 2
-    sub_line = f"Player {player_name}: {player_symbol}"
+    sub_line = f"{title} {player_name}{sep} {player_symbol}"
     sub_line_len = len(sub_line)
 
     # start build end line
